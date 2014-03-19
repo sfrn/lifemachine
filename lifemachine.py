@@ -11,17 +11,27 @@ class Printer:
 
 class Lifemachine:
     def __init__(self, query, printer, oauth_token, oauth_secret, consumer_key, consumer_secret,
-                 wait_between_queries=15, wait_between_prints=30, count=5):
+                 wait_between_queries=3*60, wait_between_prints=60, count=5):
         self.query = query
         self.connection = twitter.Twitter(auth=twitter.OAuth(
             oauth_token, oauth_secret, consumer_key, consumer_secret
             ))
         logger.info('Lifemachine, engage!')
-        self.wait_between_queries = 15
-        self.wait_between_prints = 30
-        self.count = 5
+        self.wait_between_queries = wait_between_queries
+        self.wait_between_prints = wait_between_prints
+        self.count = count
         self.since_id = None
         self.printer = printer
+
+    def print_statistics(self):
+        iteration_duration = self.wait_between_queries + self.count * self.wait_between_prints
+        print('Lifemachine estimations:')
+        print('wait_between_queries = {}, wait_between_prints = {}, count = {}'.format(
+                    self.wait_between_queries, self.wait_between_prints, self.count))
+        tweets_per_minute = self.count / (iteration_duration / 60)
+        print('{} tweets in {:.2f} minutes, {:.2f} tweets/minute, {:.2f} tweets/hour.'.format(self.count,
+                iteration_duration / 60, tweets_per_minute, tweets_per_minute * 60))
+        print('with 3cm per tweets: {:.2f} cm/hour'.format((tweets_per_minute * 60) * 3))
 
     def run(self):
         while True:
