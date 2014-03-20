@@ -17,7 +17,7 @@ class MachinePrinter(lifemachine.Printer):
     def print(self, text):
         encoded = text.replace('\n', '\n\r').encode('cp437', 'replace')
         self.stream.write(encoded)
-        self.stream.write(b'\n\r')
+        self.stream.write(b'\n\r\n\r')
         self.stream.flush()
 
 if not os.path.exists(CREDS):
