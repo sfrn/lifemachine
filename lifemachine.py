@@ -68,7 +68,8 @@ class Lifemachine:
         username = status['user']['screen_name']
         text = status['text']
         output = '@{}: {}'.format(username, text)
-        logger.info('Printing tweet: {}'.format(output))
+        link = 'https://twitter.com/{}/status/{}'.format(username, status['id_str'])
+        logger.info('Printing tweet at {}: "{}"'.format(link, output))
         self.print_text(output)
 
     def print_text(self, text):

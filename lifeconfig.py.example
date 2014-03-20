@@ -1,0 +1,6 @@
+DEVICE = '/dev/usb/lp0'
+QUERY = 'kultur OR bahnhof'
+# Copy your Twitter API consumer key / secret here.
+CONSUMER_KEY = ''
+CONSUMER_SECRET = ''
+CREDS = './machine_credentials'
